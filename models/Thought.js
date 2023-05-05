@@ -18,7 +18,12 @@ const thoughtSchema = new Schema(
             type: String,
             required: true,
         },
-        reactions: [reactionSchema],
+        reactions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Reaction',
+            }
+        ]
     },
     {
         toJSON:{
@@ -31,41 +36,13 @@ const thoughtSchema = new Schema(
 
 
 
-const reactionSchema = new Schema(
-    {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
-        reactionBody: {
-            type: String,
-            required: true,
-            maxlength: 280,
-        },
-        username: {
-            type: String,
-            required: true,
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: createdAtData => moment(createdAtData).format('MMM DD, YYYY [at] hh:mm a'),
-        }
-    },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true,
-        },
-        id: false,
-    }
-);
+
 
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
 
 const Thought = model('Thought', thoughtSchema);
-const Reaction = model('Reaction', reactionSchema);
+
 module.exports = Thought;
-module.exports = Reaction;
+
