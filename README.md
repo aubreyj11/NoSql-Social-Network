@@ -33,7 +33,5 @@ Clone the code from the Github repository. Once the code is cloned, make sure de
 ## Usage
 
 
-<br><br><br>
-![alt text](public/images/readMePhoto.png)
 
 <br>
